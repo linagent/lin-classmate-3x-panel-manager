@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="{DynamicResource SurfaceBrush}">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False"><StackPanel Margin="22,20,22,24">
+    <DockPanel><Button x:Name="CloseDrawer" DockPanel.Dock="Right" Style="{DynamicResource InlineIconButton}" Width="28" Height="28" ToolTip="关闭购买来源" AutomationProperties.Name="关闭购买来源"><Path Data="{DynamicResource IcoClose}" Style="{DynamicResource Ico}" Stroke="{DynamicResource MutedBrush}" Width="12" Height="12"/></Button><StackPanel><TextBlock Text="购买来源" FontSize="16" FontWeight="Bold"/><TextBlock x:Name="SourceServerName" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/></StackPanel></DockPanel>
+    <StackPanel x:Name="PurchaseDetails" Margin="0,24,0,0">
+      <TextBlock x:Name="SourceName" Text="未设置服务商" FontSize="22"/>
+      <TextBlock x:Name="SourceAlias" Text="未设置购买账号" FontSize="13" Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,18"/>
+      <Separator/>
+      <TextBlock x:Name="SourceHint" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="0,15,0,8" TextWrapping="Wrap"/>
+      <TextBlock x:Name="SourceCount" FontSize="12" Margin="0,0,0,8"/>
+      <TextBlock x:Name="SourceCustomer" FontSize="12" Margin="0,0,0,8"/>
+      <TextBlock Text="3X-UI 登录账号与购买账号分别管理。" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" TextWrapping="Wrap"/>
+      <TextBlock Text="此账号购买的服务器" FontSize="13" FontWeight="SemiBold" Margin="0,24,0,10"/>
+      <StackPanel x:Name="SourceServers"/>
+      <WrapPanel Margin="0,20,0,0"><Button x:Name="EditPurchaseSource" Content="编辑购买来源" Style="{DynamicResource PrimaryButton}" Margin="0,0,8,8"/><Button x:Name="FilterPurchaseAccount" Content="查看此账号服务器" Margin="0,0,0,8"/></WrapPanel>
+    </StackPanel>
+    <StackPanel x:Name="PurchaseEditor" Margin="0,24,0,0" Visibility="Collapsed">
+      <TextBlock Text="服务商" Style="{DynamicResource FieldLabel}"/><ComboBox x:Name="ProviderBox" IsEditable="True" DisplayMemberPath="Name" SelectedValuePath="Id" AutomationProperties.Name="服务商"/>
+      <TextBlock Text="可选择已有服务商，或直接输入新的名称" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="0,5,0,14"/>
+      <TextBlock Text="购买账号别名" Style="{DynamicResource FieldLabel}"/><ComboBox x:Name="PurchaseAccountBox" IsEditable="True" DisplayMemberPath="Alias" SelectedValuePath="Id" AutomationProperties.Name="购买账号别名"/>
+      <TextBlock Text="例如：账号 A、账号 B；无需保存商家密码" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="0,5,0,14"/>
+      <TextBlock Text="账号提示（可选）" Style="{DynamicResource FieldLabel}"/><TextBox x:Name="PurchaseHintBox" MaxLength="120" AutomationProperties.Name="购买账号提示"/>
+      <TextBlock x:Name="PurchaseError" FontSize="11.5" TextWrapping="Wrap" Foreground="{DynamicResource BadBrush}" Margin="0,12,0,0"/>
+      <WrapPanel Margin="0,18,0,0"><Button x:Name="SavePurchaseSource" Content="保存购买来源" Style="{DynamicResource PrimaryButton}" Margin="0,0,8,8"/><Button x:Name="CancelPurchaseEdit" Content="取消" Margin="0,0,8,8"/><Button x:Name="ClearPurchaseSource" Content="解除归属" Style="{DynamicResource MiniLinkButton}" Foreground="{DynamicResource BadBrush}" Margin="0,0,0,8"/></WrapPanel>
+    </StackPanel>
+    <Button x:Name="ManageSourceAccounts" Content="管理服务商与购买账号" Style="{DynamicResource MiniLinkButton}" HorizontalAlignment="Left" Margin="0,16,0,0"/>
+    <TextBlock Text="购买来源仅保存在本地，不会修改服务器和 3X-UI 配置。" FontSize="11" Foreground="{DynamicResource FaintBrush}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+  </StackPanel></ScrollViewer>
+</UserControl>

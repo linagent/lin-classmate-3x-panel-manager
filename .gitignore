@@ -1,0 +1,53 @@
+# Generated builds and test output
+/dist/
+/.build/
+/out/
+/TestResults/
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Local application state and private backups
+/data/
+/统一管理/
+/.3xui-panel-manager-public.json
+*.dpapi
+*.vpsaccounts
+*.log
+*.log.*
+*.bak
+*.tmp
+*.dmp
+*.pid
+.env
+.env.*
+!.env.example
+
+# SSH / certificate secrets
+.ssh/
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_ecdsa
+id_ecdsa.*
+id_dsa
+id_dsa.*
+known_hosts
+known_hosts.*
+authorized_keys
+*.pem
+*.key
+*.pfx
+*.p12
+*.ppk
+
+# Browser profiles and local caches
+/面板浏览器/
+**/WebView2/
+**/EBWebView/
+__pycache__/
+.DS_Store
+Thumbs.db

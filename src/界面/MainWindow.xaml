@@ -1,0 +1,279 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="3X-UI 面板管家" Width="1280" Height="800" MinWidth="760" MinHeight="560" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="{DynamicResource WindowEdgeBrush}">
+  <!-- custom title bar (mockup .titlebar). WindowChrome keeps native resize, Aero snap, drag and
+       double-click maximise; only the caption buttons are drawn here. -->
+  <WindowChrome.WindowChrome>
+    <WindowChrome CaptionHeight="40" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False"/>
+  </WindowChrome.WindowChrome>
+  <Grid x:Name="RootGrid">
+    <Grid.RowDefinitions><RowDefinition Height="40"/><RowDefinition Height="60"/><RowDefinition Height="*"/><RowDefinition Height="34"/></Grid.RowDefinitions>
+    <!-- Title bar -->
+    <Grid x:Name="TitleBar">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+      <StackPanel Orientation="Horizontal" Margin="14,0,0,0" VerticalAlignment="Center">
+        <Border Width="22" Height="22" CornerRadius="6">
+          <Border.Background><LinearGradientBrush StartPoint="0.33,0" EndPoint="0.67,1"><GradientStop Color="#D57A52" Offset="0"/><GradientStop Color="#C25B33" Offset="1"/></LinearGradientBrush></Border.Background>
+          <TextBlock Text="3X" FontSize="13" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,1"/>
+        </Border>
+        <TextBlock Text="3X-UI 面板管家" FontSize="14" FontWeight="Bold" Margin="10,0,0,0"/>
+        <Border Margin="10,0,0,0" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="6" Padding="7,0,7,1" VerticalAlignment="Center">
+          <TextBlock x:Name="VersionLabel" Text="1.0.0" FontSize="11" Foreground="{DynamicResource MutedBrush}" ToolTip="1.0.0 · 独立公开版"/>
+        </Border>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <Button x:Name="TitleMenuButton" Style="{DynamicResource CaptionButton}" ToolTip="更多操作" AutomationProperties.Name="更多操作">
+          <Path Data="{DynamicResource IcoDots}" Fill="{DynamicResource CaptionGlyphBrush}" Stretch="None" Width="16" Height="16"/>
+        </Button>
+        <Button x:Name="MinimizeButton" Style="{DynamicResource CaptionButton}" ToolTip="最小化" AutomationProperties.Name="最小化">
+          <Path Data="{DynamicResource IcoWinMin}" Stroke="{DynamicResource CaptionGlyphBrush}" StrokeThickness="1" Stretch="None" Width="10" Height="10" SnapsToDevicePixels="True"/>
+        </Button>
+        <Button x:Name="MaximizeButton" Style="{DynamicResource CaptionButton}" ToolTip="最大化" AutomationProperties.Name="最大化">
+          <Path x:Name="MaximizeGlyph" Data="{DynamicResource IcoWinMax}" Stroke="{DynamicResource CaptionGlyphBrush}" StrokeThickness="1" Stretch="None" Width="10" Height="10" SnapsToDevicePixels="True"/>
+        </Button>
+        <Button x:Name="CloseButton" Style="{DynamicResource CaptionCloseButton}" ToolTip="关闭" AutomationProperties.Name="关闭">
+          <Path x:Name="CloseGlyph" Data="M0,0 L10,10 M10,0 L0,10" Stroke="{DynamicResource CaptionGlyphBrush}" StrokeThickness="1" Stretch="None" Width="10" Height="10"/>
+        </Button>
+      </StackPanel>
+    </Grid>
+    <!-- Toolbar (mockup .toolbar: 60 high, gap 10, padding 0 18). Registered Toolbar actions render into ToolbarActions. -->
+    <Border Grid.Row="1" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,0,1" Padding="18,0">
+      <DockPanel LastChildFill="False" VerticalAlignment="Center">
+        <Border x:Name="LocalSecurityPill" DockPanel.Dock="Right" Height="36" Background="{DynamicResource SuccessSoftBrush}" BorderBrush="{DynamicResource SuccessLineBrush}" BorderThickness="1" CornerRadius="9" Padding="12,0,5,0" ToolTip="账号使用 Windows DPAPI 在这台电脑上加密保存，只有当前 Windows 用户能解密。">
+          <StackPanel Orientation="Horizontal">
+            <Path Data="{DynamicResource IcoLock}" Style="{DynamicResource Ico}" Stroke="{DynamicResource SuccessTextBrush}" Width="16" Height="16"/>
+            <TextBlock x:Name="LocalSecurityText" Text="账号已在本机加密 · 仅当前 Windows 用户可解密" Foreground="{DynamicResource SuccessTextBrush}" FontSize="12.5" Margin="8,0,8,0"/>
+            <Button x:Name="LockNowButton" Content="立即锁定" Height="26" MinHeight="0" Padding="10,0" FontSize="12" Foreground="{DynamicResource MutedBrush}" BorderBrush="{DynamicResource SuccessLineBrush}" ToolTip="即将支持 · 目前账号由 Windows 登录保护，无需单独锁定"/>
+          </StackPanel>
+        </Border>
+        <Grid Width="330" Height="36">
+          <TextBox x:Name="SearchBox" Style="{DynamicResource SearchTextBox}" ToolTip="按名称、地址、客户分组或备注搜索（Ctrl+K）" AutomationProperties.Name="搜索服务器"/>
+          <TextBlock x:Name="SearchHint" Text="搜索服务器 / 客户 / IP" Foreground="{DynamicResource FaintBrush}" Margin="35,0,70,0" IsHitTestVisible="False" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+        <Button x:Name="AddServerButton" Style="{DynamicResource PrimaryButton}" Height="36" Margin="10,0,0,0" ToolTip="添加服务器的面板地址、加密账号和本地资料" AutomationProperties.Name="添加服务器">
+          <StackPanel Orientation="Horizontal">
+            <Path Data="{DynamicResource IcoPlus}" Style="{DynamicResource Ico}" Stroke="White" StrokeThickness="1.8" Width="14" Height="14"/>
+            <TextBlock Text="添加服务器" Foreground="White" FontWeight="SemiBold" Margin="7,0,0,0"/>
+          </StackPanel>
+        </Button>
+        <StackPanel x:Name="ToolbarActions" Orientation="Horizontal" VerticalAlignment="Center"/>
+        <Rectangle Width="1" Height="22" Fill="{DynamicResource LineBrush}" Margin="14,0,4,0"/>
+        <Button x:Name="ThemeButton" Style="{DynamicResource GhostButton}" Width="36" Height="36" Padding="0" Margin="10,0,0,0" ToolTip="深色模式" AutomationProperties.Name="深色模式">
+          <Path Data="{DynamicResource IcoMoon}" Style="{DynamicResource Ico}" Width="16" Height="16"/>
+        </Button>
+      </DockPanel>
+    </Border>
+    <Grid x:Name="ManagerBody" Grid.Row="2">
+      <Grid.ColumnDefinitions><ColumnDefinition x:Name="SidebarColumn" Width="224"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <!-- Sidebar (mockup .side: 224 wide, padding 16 12). Groups/状态 rows filter the cards, combined with search. -->
+      <Border BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0" Padding="12,16,12,16">
+        <Grid>
+          <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <ScrollViewer Margin="0,0,-10,8" Padding="0,0,10,0" Focusable="False">
+            <StackPanel>
+              <Grid Margin="10,4,4,8">
+                <TextBlock x:Name="SidebarCaption" Text="服务器" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource FaintBrush}"/>
+                <Button x:Name="NewGroupPlus" Style="{DynamicResource InlineIconButton}" Width="20" Height="20" HorizontalAlignment="Right" ToolTip="新建分组：在服务器的「编辑」里填写客户分组即可" AutomationProperties.Name="新建分组">
+                  <Path Data="M7,3 V11 M3,7 H11" Style="{DynamicResource Ico}" Stroke="{DynamicResource FaintBrush}" StrokeThickness="1.4" Width="14" Height="14"/>
+                </Button>
+              </Grid>
+              <Border CornerRadius="7" Background="{DynamicResource SurfaceSoftBrush}" Padding="3" Margin="0,0,0,8">
+                <UniformGrid Columns="2"><Button x:Name="CustomerViewButton" Content="客户" Style="{DynamicResource ChipButton}" Padding="8,0"/><Button x:Name="ProviderViewButton" Content="服务商" Style="{DynamicResource ChipButton}" Padding="8,0"/></UniformGrid>
+              </Border>
+              <Button x:Name="SidebarAll" Style="{DynamicResource SidebarItem}" Background="{DynamicResource SidebarSelectedBrush}" ToolTip="显示全部服务器" AutomationProperties.Name="全部服务器">
+                <Grid>
+                  <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                  <Border Style="{DynamicResource SidebarAvatar}" Background="{DynamicResource AccentBrush}"><Path Data="{DynamicResource IcoGrid}" Fill="White" Stretch="Uniform" Width="11" Height="11"/></Border>
+                  <TextBlock x:Name="SidebarAllLabel" Grid.Column="1" Text="全部" FontWeight="SemiBold" Foreground="{DynamicResource AccentHoverBrush}" Margin="9,0,0,0"/>
+                  <TextBlock x:Name="SidebarCount" Grid.Column="2" FontSize="12" Foreground="{DynamicResource AccentHoverBrush}" FontWeight="SemiBold"/>
+                </Grid>
+              </Button>
+              <StackPanel x:Name="SidebarGroups"/>
+              <StackPanel x:Name="SidebarPurchases" Visibility="Collapsed"/>
+              <Button x:Name="ManagePurchasesButton" Content="管理服务商与账号" Style="{DynamicResource MiniLinkButton}" Margin="4,8,0,0" HorizontalAlignment="Left"/>
+              <TextBlock x:Name="SidebarGroupHint" Text="在服务器「编辑」里填写客户分组后，这里可按分组筛选。" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" TextWrapping="Wrap" Margin="10,6,4,0" Visibility="Collapsed"/>
+              <Rectangle Height="1" Fill="{DynamicResource LineBrush}" Margin="6,12,6,12"/>
+              <TextBlock Text="状态" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource FaintBrush}" Margin="10,4,0,8"/>
+              <StackPanel x:Name="SidebarStatus">
+                <Button x:Name="SidebarOnline" Style="{DynamicResource SidebarItem}" ToolTip="本次检测中面板可达（需先点「批量检测」）" AutomationProperties.Name="在线">
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessBrush}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="SidebarOnlineLabel" Grid.Column="1" Text="在线"/>
+                    <TextBlock x:Name="SidebarOnlineCount" Grid.Column="2" Text="—" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                  </Grid>
+                </Button>
+                <Button x:Name="SidebarOffline" Style="{DynamicResource SidebarItem}" ToolTip="本次检测中面板不可达或隧道未建立" AutomationProperties.Name="离线">
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <Ellipse Width="8" Height="8" Fill="{DynamicResource BadBrush}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="SidebarOfflineLabel" Grid.Column="1" Text="离线"/>
+                    <TextBlock x:Name="SidebarOfflineCount" Grid.Column="2" Text="—" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                  </Grid>
+                </Button>
+                <Button x:Name="SidebarExpiring" Style="{DynamicResource SidebarItem}" ToolTip="到期日在今天到 7 天内（只按本机填写的到期日计算）" AutomationProperties.Name="即将到期">
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <Ellipse Width="8" Height="8" Fill="{DynamicResource ExpiringDotBrush}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="SidebarExpiringLabel" Grid.Column="1" Text="即将到期" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="SidebarExpiringCount" Grid.Column="2" Text="0" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                  </Grid>
+                </Button>
+                <Button x:Name="SidebarExpired" Style="{DynamicResource SidebarItem}" ToolTip="到期日已过" AutomationProperties.Name="已到期">
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <Ellipse Width="8" Height="8" Fill="{DynamicResource ExpiredBrush}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="SidebarExpiredLabel" Grid.Column="1" Text="已到期" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="SidebarExpiredCount" Grid.Column="2" Text="0" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                  </Grid>
+                </Button>
+                <Button x:Name="SidebarUnchecked" Style="{DynamicResource SidebarItem}" ToolTip="本次运行尚未检测的服务器" AutomationProperties.Name="未检测">
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <Ellipse Width="8" Height="8" Fill="{DynamicResource NeutralDotBrush}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="SidebarUncheckedLabel" Grid.Column="1" Text="未检测"/>
+                    <TextBlock x:Name="SidebarUncheckedCount" Grid.Column="2" Text="0" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                  </Grid>
+                </Button>
+              </StackPanel>
+            </StackPanel>
+          </ScrollViewer>
+          <Button x:Name="NewGroupButton" Grid.Row="1" Style="{DynamicResource DashedButton}" ToolTip="即将支持 · 现在可在服务器「编辑」里直接填写新的客户分组" AutomationProperties.Name="新建分组">
+            <StackPanel Orientation="Horizontal">
+              <Path Data="{DynamicResource IcoPlusSmall}" Style="{DynamicResource Ico}" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.4" Width="12" Height="12"/>
+              <TextBlock Text="新建分组" FontSize="12.5" Foreground="{DynamicResource MutedBrush}" Margin="6,0,0,0"/>
+            </StackPanel>
+          </Button>
+        </Grid>
+      </Border>
+      <Grid Grid.Column="1" Margin="20,16,0,0">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="48"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <!-- Summary strip (mockup .summary: 76 high, radius 12). Online numbers appear only after an explicit check. -->
+        <Border x:Name="SummaryStrip" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="12" Height="76" Padding="8,0" Margin="0,0,20,0">
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <StackPanel x:Name="SummaryStats" Orientation="Horizontal" ClipToBounds="True">
+              <Border x:Name="SummaryTotalBlock" Tag="Stat" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="0,0,1,0" Padding="22,0" Height="44">
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="总服务器" FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+                  <StackPanel Orientation="Horizontal" Margin="0,2,0,0"><TextBlock x:Name="SummaryTotal" Text="0" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight"/><TextBlock Text="台" FontSize="12" Foreground="{DynamicResource FaintBrush}" Margin="4,0,0,3" VerticalAlignment="Bottom"/></StackPanel>
+                </StackPanel>
+              </Border>
+              <Border Tag="Stat" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="0,0,1,0" Padding="22,0" Height="44">
+                <Grid VerticalAlignment="Center">
+                  <StackPanel x:Name="SummaryUncheckedBlock" ToolTip="点击「批量检测」或卡片上的检测图标后才会联网检测。">
+                    <StackPanel Orientation="Horizontal"><Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessBrush}"/><TextBlock Text="在线" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="6,0,0,0"/></StackPanel>
+                    <TextBlock Text="—" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight" Foreground="{DynamicResource PlaceholderBrush}" Margin="0,2,0,0" HorizontalAlignment="Left"/>
+                  </StackPanel>
+                  <StackPanel x:Name="SummaryOnlineBlock" Visibility="Collapsed" ToolTip="本次检测中面板可达的服务器 / 已检测数量">
+                    <StackPanel Orientation="Horizontal"><Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessBrush}"/><TextBlock Text="在线" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="6,0,0,0"/></StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0"><TextBlock x:Name="SummaryOnline" Text="0" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight" Foreground="{DynamicResource SuccessBrush}"/><TextBlock x:Name="SummaryOnlineOf" Text="/ 0" FontSize="12" Foreground="{DynamicResource FaintBrush}" Margin="4,0,0,3" VerticalAlignment="Bottom"/></StackPanel>
+                  </StackPanel>
+                </Grid>
+              </Border>
+              <Border Tag="Stat" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="0,0,1,0" Padding="22,0" Height="44" ToolTip="面板不可达或隧道未建立（只统计本次检测）">
+                <StackPanel VerticalAlignment="Center">
+                  <StackPanel Orientation="Horizontal"><Ellipse Width="8" Height="8" Fill="{DynamicResource BadBrush}"/><TextBlock Text="离线" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="6,0,0,0"/></StackPanel>
+                  <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                    <TextBlock x:Name="SummaryOffline" Text="—" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight" Foreground="{DynamicResource PlaceholderBrush}"/>
+                    <StackPanel x:Name="SummaryProblemBlock" Orientation="Horizontal" Visibility="Collapsed" Margin="8,0,0,3" VerticalAlignment="Bottom" ToolTip="隧道未建立、面板不可达或登录失败的服务器">
+                      <TextBlock Text="异常 " FontSize="12" Foreground="{DynamicResource FaintBrush}"/><TextBlock x:Name="SummaryProblem" Text="0" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                    </StackPanel>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+              <Border x:Name="SummaryExpiringBlock" Tag="Stat" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="0,0,1,0" Padding="22,0" Height="44" ToolTip="到期日在今天到 7 天内的服务器（只按本机填写的到期日计算，不联网）">
+                <StackPanel VerticalAlignment="Center">
+                  <StackPanel Orientation="Horizontal"><Ellipse Width="8" Height="8" Fill="{DynamicResource ExpiringDotBrush}"/><TextBlock Text="7 天内到期" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="6,0,0,0"/></StackPanel>
+                  <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                    <TextBlock x:Name="SummaryExpiring" Text="0" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight"/>
+                    <TextBlock x:Name="SummaryExpired" Text="已到期 0" FontSize="12" Foreground="{DynamicResource ExpiredBrush}" Margin="8,0,0,3" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+              <Border x:Name="SummaryLatencyBlock" Tag="Stat" Padding="22,0" Height="44" ToolTip="每台服务器只计一次：CPU或内存≥80%，磁盘≥85%；数据未读取或过期显示待更新。">
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="资源需关注" FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+                  <Button x:Name="ResourceAttentionButton" Style="{DynamicResource MiniLinkButton}" Padding="0" HorizontalAlignment="Left" ToolTip="筛选资源偏高的服务器">
+                    <StackPanel Orientation="Horizontal"><TextBlock x:Name="SummaryResourceCount" Text="—" FontSize="24" FontWeight="Bold" LineHeight="28" LineStackingStrategy="BlockLineHeight" Foreground="{DynamicResource PlaceholderBrush}"/><TextBlock x:Name="SummaryResourceNote" Text="待检测" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="4,0,0,3" VerticalAlignment="Bottom"/></StackPanel>
+                  </Button>
+                </StackPanel>
+              </Border>
+            </StackPanel>
+            <StackPanel x:Name="SummaryControls" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,12,0">
+              <StackPanel x:Name="CheckProgressPanel" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,12,0">
+                <TextBlock x:Name="CheckProgressText" Text="检测中 0 / 0" FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+                <ProgressBar x:Name="CheckProgressBar" Width="90" Margin="10,0,0,0" VerticalAlignment="Center" Minimum="0" Maximum="1" Value="0"/>
+                <Button x:Name="CancelCheck" Content="取消" Height="30" MinHeight="0" Padding="11,0" FontSize="12" Margin="10,0,0,0" ToolTip="取消检测（已发出的请求会在超时内自行结束）"/>
+              </StackPanel>
+              <StackPanel x:Name="SummaryLoginBlock" Orientation="Horizontal" Visibility="Collapsed" Margin="0,0,10,0" VerticalAlignment="Center">
+                <TextBlock Text="登录正常 " FontSize="12" Foreground="{DynamicResource FaintBrush}"/><TextBlock x:Name="SummaryLogin" Text="0" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+                <TextBlock Text="  ·" FontSize="12" Foreground="{DynamicResource FaintBrush}"/>
+              </StackPanel>
+              <TextBlock x:Name="SummaryNote" Text="尚未检测" FontSize="12" Foreground="{DynamicResource FaintBrush}" TextTrimming="CharacterEllipsis" MaxWidth="220"/>
+              <Button x:Name="RefreshCheck" Height="30" MinHeight="0" Padding="11,0" FontSize="12" Margin="12,0,0,0" ToolTip="立即重新检测全部服务器（只读）；手动检测可恢复认证失败后的自动暂停。" AutomationProperties.Name="刷新检测">
+                <StackPanel Orientation="Horizontal">
+                  <Path Data="{DynamicResource IcoRefresh}" Style="{DynamicResource Ico}" Stroke="{DynamicResource InkBrush}" StrokeThickness="1.6" Width="16" Height="16" Margin="-2,0,0,0"><Path.LayoutTransform><ScaleTransform ScaleX="0.82" ScaleY="0.82"/></Path.LayoutTransform></Path>
+                  <TextBlock Text="刷新" FontSize="12" Margin="6,0,0,0"/>
+                </StackPanel>
+              </Button>
+            </StackPanel>
+          </Grid>
+        </Border>
+        <!-- List header (mockup .lh: 48 high). -->
+        <DockPanel Grid.Row="1" Margin="0,0,20,0" LastChildFill="False">
+          <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button x:Name="CompactPurchaseFilter" Content="购买来源" Style="{DynamicResource ChipButton}" Visibility="Collapsed" Margin="0,0,8,0" ToolTip="按服务商或购买账号筛选"/>
+            <TextBlock x:Name="AutoRefreshStatus" Text="启动后自动检测" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <Button x:Name="AutoRefreshButton" Style="{DynamicResource ChipButton}" Margin="0,0,8,0" ToolTip="选择手动、每 1 分钟或每 5 分钟自动刷新" AutomationProperties.Name="自动刷新设置">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="AutoRefreshModeLabel" Text="自动 · 5 分钟" FontSize="12.5" Foreground="{DynamicResource MutedBrush}"/>
+                <Path Data="{DynamicResource IcoChevron}" Style="{DynamicResource Ico}" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.3" Width="10" Height="10" Margin="6,0,0,0"/>
+              </StackPanel>
+            </Button>
+            <Button x:Name="SortButton" Style="{DynamicResource ChipButton}" ToolTip="按客户分组排序，再按名称。再点一次恢复列表顺序。" AutomationProperties.Name="排序">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="按客户排序" FontSize="12.5" Foreground="{DynamicResource MutedBrush}"/>
+                <Path Data="{DynamicResource IcoChevron}" Style="{DynamicResource Ico}" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.3" Width="10" Height="10" Margin="6,0,0,0"/>
+              </StackPanel>
+            </Button>
+            <Border Margin="8,0,0,0" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="8" Height="30">
+              <StackPanel Orientation="Horizontal">
+                <Border Width="32" Background="{DynamicResource AccentSoftBrush}" CornerRadius="7,0,0,7" ToolTip="卡片视图"><Path Data="{DynamicResource IcoGrid}" Fill="{DynamicResource AccentHoverBrush}" Stretch="Uniform" Width="13" Height="13"/></Border>
+                <Button x:Name="ListViewButton" Width="32" MinHeight="0" Height="28" Padding="0" BorderThickness="0" Background="Transparent" ToolTip="列表视图 · 即将支持" AutomationProperties.Name="列表视图">
+                  <Path Data="{DynamicResource IcoList}" Fill="{DynamicResource FaintBrush}" Stretch="Uniform" Width="13" Height="13"/>
+                </Button>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock x:Name="ListTitle" Text="全部服务器" FontWeight="Bold" FontSize="14" MaxWidth="300" TextTrimming="CharacterEllipsis"/>
+            <TextBlock x:Name="ResultCount" Foreground="{DynamicResource FaintBrush}" FontSize="12.5" Margin="8,1,0,0"/>
+            <TextBlock x:Name="ListHint" Text=" · 点击「进入面板」打开" Foreground="{DynamicResource FaintBrush}" FontSize="12.5" Margin="0,1,0,0"/>
+            <Button x:Name="ClearFilter" Content="清除筛选" Style="{DynamicResource MiniLinkButton}" Margin="6,1,0,0" Visibility="Collapsed" ToolTip="回到全部服务器（不影响搜索框）"/>
+            <Button x:Name="UndoDeleteButton" Content="恢复列表" Style="{DynamicResource MiniLinkButton}" Foreground="{DynamicResource AccentBrush}" Margin="6,1,0,0" Visibility="Collapsed" ToolTip="恢复刚移除的服务器记录；已清理的文件请从回收站恢复。" AutomationProperties.Name="恢复刚删除的服务器列表记录"/>
+          </StackPanel>
+        </DockPanel>
+        <Grid Grid.Row="2">
+          <ScrollViewer x:Name="ServerScroll" VerticalScrollBarVisibility="Visible" Focusable="False">
+            <UniformGrid x:Name="ServerCards" Columns="3" Margin="0,0,-4,0" VerticalAlignment="Top"/>
+          </ScrollViewer>
+          <TextBlock x:Name="EmptyState" Text="没有找到匹配的服务器。" Foreground="{DynamicResource FaintBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+        </Grid>
+      </Grid>
+    </Grid>
+    <!-- Status bar (mockup .status). Encryption is Windows DPAPI on this computer (honest label, not AES-256). -->
+    <Border Grid.Row="3" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,1,0,0" Padding="18,0">
+      <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+          <Path Data="{DynamicResource IcoShieldCheck}" Style="{DynamicResource Ico}" Stroke="{DynamicResource SuccessBrush}" StrokeThickness="1.6" Width="16" Height="16"><Path.LayoutTransform><ScaleTransform ScaleX="0.82" ScaleY="0.82"/></Path.LayoutTransform></Path>
+          <TextBlock x:Name="StatusSummary" Text="0 台服务器 · 数据仅保存在本地 · 已加密（Windows DPAPI）" FontSize="12" Foreground="{DynamicResource MutedBrush}" Margin="8,0,0,0" ToolTip="账号使用 Windows DPAPI 在这台电脑上加密保存。"/>
+        </StackPanel>
+        <TextBlock x:Name="Feedback" Grid.Column="1" Text="已就绪 · 双击原来的快捷方式，就能继续使用。" Foreground="{DynamicResource FaintBrush}" FontSize="12" Margin="22,0,16,0" TextTrimming="CharacterEllipsis"/>
+        <TextBlock Grid.Column="2" Text="独立数据 · 本机加密" FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+      </Grid>
+    </Border>
+    <Grid x:Name="MonitorOverlay" Grid.Row="2" Grid.RowSpan="2" Panel.ZIndex="20" Visibility="Collapsed" KeyboardNavigation.TabNavigation="Cycle">
+      <Button x:Name="DrawerBackdrop" Background="#55000000" BorderThickness="0" Padding="0" Focusable="False" AutomationProperties.Name="关闭详情">
+        <Button.Template><ControlTemplate TargetType="Button"><Border Background="{TemplateBinding Background}"/></ControlTemplate></Button.Template>
+      </Button>
+      <Border x:Name="DrawerFrame" Width="480" HorizontalAlignment="Right" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1,0,0,0">
+        <ContentControl x:Name="DrawerContent"/>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

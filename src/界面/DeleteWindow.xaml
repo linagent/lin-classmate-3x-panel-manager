@@ -1,0 +1,50 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="删除服务器" Width="620" SizeToContent="Height" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid Margin="24">
+    <Border Background="{DynamicResource DialogPaperBrush}" CornerRadius="14">
+      <Border.Effect><DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Opacity="0.22" Color="#28190F"/></Border.Effect>
+    </Border>
+    <Border BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="14">
+      <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid x:Name="DialogHeader" Margin="22,18,16,12" Background="Transparent">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <Border Width="34" Height="34" CornerRadius="9" Background="{DynamicResource BadSoftBrush}">
+            <Path Data="{DynamicResource IcoWarn}" Style="{DynamicResource Ico}" Stroke="{DynamicResource BadTextBrush}" Width="18" Height="18"/>
+          </Border>
+          <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+            <TextBlock Text="删除服务器" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Text="确认本地清理范围" Foreground="{DynamicResource FaintBrush}" FontSize="12" Margin="0,2,0,0"/>
+          </StackPanel>
+          <Button x:Name="DialogClose" Grid.Column="2" Style="{DynamicResource InlineIconButton}" Width="30" Height="30" VerticalAlignment="Top" ToolTip="关闭（不删除）" AutomationProperties.Name="关闭删除确认">
+            <Path Data="{DynamicResource IcoClose}" Style="{DynamicResource Ico}" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.4" Width="12" Height="12"/>
+          </Button>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="22,4,22,8">
+          <Border Background="{DynamicResource NoteWellBrush}" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="1" CornerRadius="9" Padding="14,12" Margin="0,0,0,16">
+            <StackPanel>
+              <TextBlock x:Name="DeleteName" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"/>
+              <TextBlock x:Name="DeleteAddress" Foreground="{DynamicResource FaintBrush}" FontFamily="{DynamicResource MonoFont}" FontSize="12" Margin="0,5,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+          </Border>
+          <TextBlock Text="删除原因（可选）" Style="{DynamicResource FieldLabel}"/>
+          <TextBox x:Name="DeleteReason" MaxLength="200" Height="58" Padding="11,7" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" AutomationProperties.Name="删除原因" Margin="0,0,0,16"/>
+          <TextBlock Text="同时清理" Style="{DynamicResource FieldLabel}"/>
+          <CheckBox x:Name="DeleteLocalFiles" IsChecked="True" Content="这台服务器的本地专属资料与浏览器缓存" Margin="0,0,0,10" FontSize="12.5" AutomationProperties.Name="清理本地专属资料"/>
+          <CheckBox x:Name="DeleteHomeCopy" IsChecked="True" Content="家用电脑版中的对应资料，并同步更新压缩包" Margin="0,0,0,14" FontSize="12.5" AutomationProperties.Name="同步清理家用电脑版"/>
+          <Border Background="{DynamicResource BadSoftBrush}" CornerRadius="8" Padding="11,9">
+            <TextBlock x:Name="DeleteSummary" Text="从服务器列表移除；勾选的本地专属文件移入回收站。其余服务器、共用程序及现有历史备份保留。" Foreground="{DynamicResource BadTextBrush}" FontSize="12" TextWrapping="Wrap" LineHeight="20" LineStackingStrategy="BlockLineHeight"/>
+          </Border>
+          <TextBlock x:Name="DeleteError" Foreground="{DynamicResource BadTextBrush}" FontSize="12.5" TextWrapping="Wrap" Margin="0,12,0,0">
+            <TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers></Style></TextBlock.Style>
+          </TextBlock>
+        </StackPanel>
+        <Border Grid.Row="2" Background="{DynamicResource FooterBrush}" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="0,1,0,0" CornerRadius="0,0,13,13" Padding="22,14,22,18" Margin="0,8,0,0">
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="CancelDelete" Content="取消" IsCancel="True" Height="36" Margin="0,0,10,0"/>
+            <Button x:Name="ConfirmDelete" Content="删除服务器" Height="36" Padding="22,0" Style="{DynamicResource PrimaryButton}" Background="{DynamicResource BadTextBrush}" BorderBrush="{DynamicResource BadTextBrush}" AutomationProperties.Name="确认删除服务器"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>

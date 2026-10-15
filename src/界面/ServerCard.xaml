@@ -1,0 +1,148 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Margin="0,0,12,10" MinWidth="250">
+  <!-- Compact cards preserve every field and action. The separate shadow layer keeps text crisp. -->
+  <Border x:Name="CardBack" Background="{DynamicResource SurfaceBrush}" CornerRadius="12">
+    <Border.Effect><DropShadowEffect BlurRadius="12" ShadowDepth="1" Direction="270" Opacity="0.05" Color="#784628"/></Border.Effect>
+  </Border>
+  <Border x:Name="CardFrame" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="12" Padding="12,10,12,10">
+    <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <!-- The country tile is centered as a unit. Name, status and menu share one title row. -->
+      <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="44"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Border x:Name="BadgeFrame" Width="44" Height="44" CornerRadius="10" Background="{DynamicResource BadgeBrush}" BorderBrush="{DynamicResource Line2Brush}" BorderThickness="1" VerticalAlignment="Top">
+          <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ContentControl x:Name="ServerFlag" Width="30" Height="20" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsHitTestVisible="False"/>
+            <TextBlock x:Name="ServerBadge" FontFamily="{DynamicResource NameFont}" FontSize="10.5" Foreground="{DynamicResource BadgeInkBrush}" TextOptions.TextFormattingMode="Ideal" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,3,0,0"/>
+          </StackPanel>
+        </Border>
+        <Grid Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Top">
+          <Grid.RowDefinitions><RowDefinition Height="22"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+          <TextBlock x:Name="ServerName" FontFamily="{DynamicResource NameFont}" FontWeight="Bold" FontSize="15" TextTrimming="CharacterEllipsis" TextOptions.TextFormattingMode="Ideal" VerticalAlignment="Center" Margin="0,0,8,0"/>
+          <DockPanel Grid.Row="1" Grid.ColumnSpan="3" LastChildFill="True" Margin="0,2,0,0">
+            <Border x:Name="GroupFrame" DockPanel.Dock="Right" Background="{DynamicResource GroupSoftBrush}" Style="{DynamicResource MetaTag}" Margin="6,0,0,0" MaxWidth="68" VerticalAlignment="Center" Visibility="Collapsed">
+              <TextBlock x:Name="GroupLabel" FontFamily="{DynamicResource NameFont}" TextOptions.TextFormattingMode="Ideal" FontSize="10.5" FontWeight="Medium" Foreground="{DynamicResource GroupBrush}" TextTrimming="CharacterEllipsis"/>
+            </Border>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Name="RegionLabel" FontSize="11.5" Foreground="{DynamicResource FaintBrush}"/>
+              <Border x:Name="ConnectionFrame" Background="Transparent"><TextBlock x:Name="ConnectionLabel" FontSize="11.5" Foreground="{DynamicResource FaintBrush}"/></Border>
+            </StackPanel>
+          </DockPanel>
+        <!-- Status: dot + text. The four separate layers (account / tunnel / HTTP / login) live in its tooltip. -->
+        <Border x:Name="StatusPill" Grid.Column="1" Background="Transparent" Margin="0,0,5,0" VerticalAlignment="Center" ToolTipService.ShowDuration="30000" ToolTipService.InitialShowDelay="250">
+          <StackPanel Orientation="Horizontal">
+            <Grid Width="14" Height="14">
+              <Ellipse x:Name="StatusRing" Width="14" Height="14" Fill="#26BDB6AE"/>
+              <Ellipse x:Name="StatusDot" Width="8" Height="8" Fill="{DynamicResource NeutralDotBrush}"/>
+            </Grid>
+            <TextBlock x:Name="StatusText" Text="未检测" FontSize="12" Foreground="{DynamicResource FaintBrush}" Margin="4,0,0,0"/>
+            <TextBlock x:Name="StatusMs" FontSize="12" FontWeight="SemiBold" Margin="5,0,0,0" Visibility="Collapsed"/>
+          </StackPanel>
+          <Border.ToolTip>
+            <ToolTip x:Name="StatusTip">
+              <StackPanel Width="296">
+                <TextBlock x:Name="StatusTipTitle" Text="检测详情" FontSize="12" FontWeight="SemiBold"/>
+                <UniformGrid Columns="4" Margin="0,8,-4,0">
+                  <Border x:Name="ChipAccount" Style="{DynamicResource StatusChip}"><TextBlock x:Name="ChipAccountText" Style="{DynamicResource StatusChipText}"/></Border>
+                  <Border x:Name="ChipTunnel" Style="{DynamicResource StatusChip}"><TextBlock x:Name="ChipTunnelText" Style="{DynamicResource StatusChipText}"/></Border>
+                  <Border x:Name="ChipHttp" Style="{DynamicResource StatusChip}"><TextBlock x:Name="ChipHttpText" Style="{DynamicResource StatusChipText}"/></Border>
+                  <Border x:Name="ChipLogin" Style="{DynamicResource StatusChip}"><TextBlock x:Name="ChipLoginText" Style="{DynamicResource StatusChipText}"/></Border>
+                </UniformGrid>
+                <TextBlock x:Name="CheckDetail" FontSize="11.5" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+              </StackPanel>
+            </ToolTip>
+          </Border.ToolTip>
+        </Border>
+          <Button x:Name="MoreButton" Grid.Column="2" Width="28" Height="22" Style="{DynamicResource InlineIconButton}" VerticalAlignment="Center" ToolTip="更多操作" AutomationProperties.Name="更多服务器操作">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+              <Ellipse Width="2.5" Height="2.5" Fill="{DynamicResource FaintBrush}" Margin="0,0,3,0"/>
+              <Ellipse Width="2.5" Height="2.5" Fill="{DynamicResource FaintBrush}" Margin="0,0,3,0"/>
+              <Ellipse Width="2.5" Height="2.5" Fill="{DynamicResource FaintBrush}"/>
+            </StackPanel>
+          </Button>
+        </Grid>
+      </Grid>
+      <!-- Key/value rows (mockup .kv: 12px, gray labels, monospace values). -->
+      <Grid Grid.Row="1" Margin="0,6,0,0">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions><RowDefinition Height="20"/><RowDefinition Height="20"/><RowDefinition Height="24"/><RowDefinition Height="22"/><RowDefinition x:Name="ExpiryRow" Height="20"/><RowDefinition x:Name="NoteRow" Height="0"/></Grid.RowDefinitions>
+        <TextBlock Text="地址" Style="{DynamicResource KvLabel}"/>
+        <TextBlock x:Name="ServerAddress" Grid.Column="1" FontFamily="{DynamicResource MonoFont}" FontSize="12" TextTrimming="CharacterEllipsis"/>
+        <TextBlock Grid.Row="1" Text="面板" Style="{DynamicResource KvLabel}"/>
+        <TextBlock x:Name="PanelText" Grid.Row="1" Grid.Column="1" FontFamily="{DynamicResource MonoFont}" FontSize="12" TextTrimming="CharacterEllipsis"/>
+        <TextBlock x:Name="AccountCaption" Grid.Row="2" Text="3X-UI：" Style="{DynamicResource KvLabel}" Margin="0"/>
+          <Grid x:Name="CredentialsPanel" Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="22"/><ColumnDefinition Width="22"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/><ColumnDefinition Width="22"/><ColumnDefinition Width="22"/></Grid.ColumnDefinitions>
+            <TextBox x:Name="UsernameBox" TextBlock.LineStackingStrategy="MaxHeight" IsReadOnly="True" BorderThickness="0" Background="Transparent" Padding="0" MinHeight="0" FontFamily="{DynamicResource MonoFont}" FontSize="12" VerticalAlignment="Center" Style="{DynamicResource BareTextBox}" AutomationProperties.Name="面板账号"/>
+            <CheckBox x:Name="ShowUsername" Grid.Column="1" Style="{DynamicResource EyeToggle}" ToolTip="显示 / 隐藏用户名" AutomationProperties.Name="显示3X-UI用户名"/>
+            <Button x:Name="CopyUsername" Grid.Column="2" Style="{DynamicResource InlineIconButton}" ToolTip="复制用户名（无需显示明文）" AutomationProperties.Name="复制3X-UI用户名">
+              <Path Data="{DynamicResource IcoCopy}" Style="{DynamicResource Ico}" Stroke="{DynamicResource FaintBrush}" StrokeThickness="1.4" Width="16" Height="16"><Path.LayoutTransform><ScaleTransform ScaleX="0.8" ScaleY="0.8"/></Path.LayoutTransform></Path>
+            </Button>
+            <TextBlock Grid.Column="3" Text="/" Foreground="{DynamicResource PlaceholderBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="PasswordDisplay" Grid.Column="4" IsReadOnly="True" BorderThickness="0" Background="Transparent" Padding="0" MinHeight="0" FontFamily="{DynamicResource MonoFont}" FontSize="12" VerticalAlignment="Center" Style="{DynamicResource BareTextBox}" AutomationProperties.Name="面板密码"/>
+            <CheckBox x:Name="ShowPassword" Grid.Column="5" Style="{DynamicResource EyeToggle}" ToolTip="显示 / 隐藏密码" AutomationProperties.Name="显示密码"/>
+            <Button x:Name="CopyPassword" Grid.Column="6" Style="{DynamicResource InlineIconButton}" ToolTip="复制密码（无需显示明文）" AutomationProperties.Name="复制密码">
+              <Path Data="{DynamicResource IcoCopy}" Style="{DynamicResource Ico}" Stroke="{DynamicResource FaintBrush}" StrokeThickness="1.4" Width="16" Height="16"><Path.LayoutTransform><ScaleTransform ScaleX="0.8" ScaleY="0.8"/></Path.LayoutTransform></Path>
+            </Button>
+          </Grid>
+        <TextBlock Grid.Row="3" Text="服务商：" Style="{DynamicResource KvLabel}" Margin="0"/>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+          <Button x:Name="PurchaseSourceButton" Style="{DynamicResource MiniLinkButton}" Padding="0" MaxWidth="130" Foreground="{DynamicResource MutedBrush}" ToolTip="查看或设置购买来源"><TextBlock x:Name="ProviderName" Text="未设置 · 点击设置" TextTrimming="CharacterEllipsis"/></Button>
+          <TextBlock x:Name="PurchaseSeparator" Text=" · " Foreground="{DynamicResource FaintBrush}" VerticalAlignment="Center"/>
+          <TextBlock x:Name="PurchaseAlias" Text="••••••" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" VerticalAlignment="Center" MaxWidth="100" TextTrimming="CharacterEllipsis"/>
+          <CheckBox x:Name="ShowPurchaseAccount" Style="{DynamicResource EyeToggle}" ToolTip="显示 / 隐藏购买账号别名" AutomationProperties.Name="显示购买账号别名"/>
+        </StackPanel>
+        <TextBlock x:Name="ExpiryCaption" Grid.Row="4" Text="到期" Style="{DynamicResource KvLabel}"/>
+        <TextBlock x:Name="ExpiryText" Grid.Row="4" Grid.Column="1" FontSize="12" TextTrimming="CharacterEllipsis"/>
+        <TextBlock x:Name="NoteCaption" Grid.Row="5" Text="备注" Style="{DynamicResource KvLabel}" Visibility="Collapsed"/>
+        <TextBlock x:Name="NoteText" Grid.Row="5" Grid.Column="1" FontFamily="{DynamicResource NameFont}" TextOptions.TextFormattingMode="Ideal" FontSize="12" Foreground="{DynamicResource MutedBrush}" TextTrimming="CharacterEllipsis" Visibility="Collapsed"/>
+      </Grid>
+      <!-- Middle slot: read-only server traffic, or an alert line. -->
+      <StackPanel Grid.Row="2">
+        <Button x:Name="ResourceOverview" Background="Transparent" BorderThickness="0" Padding="0" MinHeight="0" HorizontalContentAlignment="Stretch" Margin="0,6,0,0" ToolTip="查看完整资源监控" AutomationProperties.Name="资源监控">
+          <UniformGrid Columns="3">
+            <Grid Margin="0,0,10,0"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="CPU" FontSize="11" Foreground="{DynamicResource FaintBrush}"/><TextBlock x:Name="CpuValue" Grid.Column="1" Text="—" FontSize="12" HorizontalAlignment="Right" Margin="6,0,0,0"/><ProgressBar x:Name="CpuMeter" Grid.Row="1" Grid.ColumnSpan="2" Height="3" Margin="0,4,0,0" Minimum="0" Maximum="100" Value="0"/></Grid>
+            <Grid Margin="0,0,10,0"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="内存" FontSize="11" Foreground="{DynamicResource FaintBrush}"/><TextBlock x:Name="MemoryValue" Grid.Column="1" Text="—" FontSize="12" HorizontalAlignment="Right" Margin="6,0,0,0"/><ProgressBar x:Name="MemoryMeter" Grid.Row="1" Grid.ColumnSpan="2" Height="3" Margin="0,4,0,0" Minimum="0" Maximum="100" Value="0"/></Grid>
+            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="磁盘 ↗" FontSize="11" Foreground="{DynamicResource FaintBrush}"/><TextBlock x:Name="DiskValue" Grid.Column="1" Text="—" FontSize="12" HorizontalAlignment="Right" Margin="6,0,0,0"/><ProgressBar x:Name="DiskMeter" Grid.Row="1" Grid.ColumnSpan="2" Height="3" Margin="0,4,0,0" Minimum="0" Maximum="100" Value="0"/></Grid>
+          </UniformGrid>
+        </Button>
+        <StackPanel x:Name="TrafficPanel" Margin="0,7,0,0" Background="Transparent" ToolTip="检测时读取累计流量；总流量可在编辑服务器中设置。">
+          <DockPanel Margin="0,0,0,4">
+            <TextBlock x:Name="TrafficValue" DockPanel.Dock="Right" Text="待检测" FontSize="11.5" MaxWidth="218" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource PlaceholderBrush}"/>
+            <DockPanel LastChildFill="True" Margin="0,0,6,0">
+              <TextBlock x:Name="TrafficLabel" DockPanel.Dock="Left" Text="累计流量" FontSize="11.5" Foreground="{DynamicResource FaintBrush}"/>
+              <TextBlock x:Name="TrafficRemaining" FontSize="11.5" Foreground="{DynamicResource FaintBrush}" TextTrimming="CharacterEllipsis"/>
+            </DockPanel>
+          </DockPanel>
+          <Border x:Name="TrafficTrack" Height="4" CornerRadius="3" Background="{DynamicResource TrackBrush}" ClipToBounds="True">
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition x:Name="TrafficUploadColumn" Width="0*"/><ColumnDefinition x:Name="TrafficDownloadColumn" Width="1*"/></Grid.ColumnDefinitions>
+              <Border x:Name="TrafficUploadFill" Grid.Column="0" Background="{DynamicResource AccentBrush}" Visibility="Collapsed"/>
+              <Border x:Name="TrafficDownloadFill" Grid.Column="1" Background="{DynamicResource InfoBrush}" Visibility="Collapsed"/>
+            </Grid>
+          </Border>
+          <TextBlock x:Name="TrafficHint" Visibility="Collapsed"/>
+        </StackPanel>
+        <Border x:Name="OffNote" Margin="0,7,0,0" CornerRadius="7" Padding="9,5" Background="{DynamicResource BadSoftBrush}" Visibility="Collapsed">
+          <StackPanel Orientation="Horizontal">
+            <Path x:Name="OffNoteIcon" Data="{DynamicResource IcoWarn}" Style="{DynamicResource Ico}" Stroke="{DynamicResource BadTextBrush}" Width="16" Height="16"><Path.LayoutTransform><ScaleTransform ScaleX="0.82" ScaleY="0.82"/></Path.LayoutTransform></Path>
+            <TextBlock x:Name="OffNoteText" FontSize="11.5" Foreground="{DynamicResource BadTextBrush}" Margin="6,0,0,0" TextTrimming="CharacterEllipsis"/>
+          </StackPanel>
+        </Border>
+        <!-- Account problems only (readable accounts are shown by the 账号 row). -->
+        <Border x:Name="AccountStatusFrame" Margin="0,6,0,0" CornerRadius="7" Padding="9,5" Background="{DynamicResource WarnSoftBrush}">
+          <Grid x:Name="AccountStatusRow">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Path x:Name="AccountStatusIcon" Data="{DynamicResource IcoWarn}" Style="{DynamicResource Ico}" Stroke="{DynamicResource WarnBrush}" Width="16" Height="16" VerticalAlignment="Top"><Path.LayoutTransform><ScaleTransform ScaleX="0.82" ScaleY="0.82"/></Path.LayoutTransform></Path>
+            <TextBlock x:Name="AccountStatus" Grid.Column="1" Foreground="{DynamicResource WarnBrush}" TextWrapping="Wrap" FontSize="11.5" Margin="6,0,0,0"/>
+          </Grid>
+        </Border>
+      </StackPanel>
+      <Grid x:Name="ServerActions" Grid.Row="4" Margin="0,8,0,0"/>
+    </Grid>
+  </Border>
+  <!-- Corner ribbon (mockup .badge): orange 「N 天后到期」 / red 「已到期」. -->
+  <Border x:Name="ExpiryFrame" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,12,0" CornerRadius="0,0,7,7" Padding="8,2,8,3" Background="{DynamicResource ExpiringDotBrush}" Visibility="Collapsed">
+    <TextBlock x:Name="ExpiryBadge" FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+  </Border>
+</Grid>
