@@ -4,6 +4,16 @@
 
 公开版使用独立的程序身份和数据目录，首次运行为空列表，不附带服务器、账号、密码、密钥或个人运行记录。
 
+## 界面预览
+
+公开版空状态（首次运行）：
+
+![公开版空状态（首次运行）](docs/screenshots/empty-state.png)
+
+管理多台服务器时的界面示意（示例，可能来自个人构建）：
+
+![管理多台服务器时的界面示意](docs/screenshots/dashboard-with-servers.png)
+
 ## 快速开始
 
 1. 在 Windows 10 / 11 上运行构建生成的 `dist\3XUI-Panel-Manager.exe`。
