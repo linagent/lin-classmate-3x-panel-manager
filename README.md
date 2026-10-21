@@ -64,4 +64,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Test-PublicPrivacy.p
 
 使用及提交前的说明见 [安全说明](docs/SECURITY.md)。
 
-当前尚未指定开源许可证；公开源码不等于授予复制、修改或再分发许可，具体授权以仓库所有者后续声明为准。
+本项目采用 [MIT](LICENSE) 开源许可证，允许在遵守许可证条款的前提下使用、复制、修改和再分发；完整条款见仓库根目录的 [LICENSE](LICENSE) 文件。
